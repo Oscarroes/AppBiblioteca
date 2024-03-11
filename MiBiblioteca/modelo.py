@@ -15,6 +15,19 @@ class Modelo:
 
         return resultados
     
+    def traerLibroPorTitulo(self,titulo):
+        libro = self.coleccion.find_one({"titulo":titulo})
+        return libro
+    
+    def obtenerPortada(self, idPortada):
+        try:
+            # Recuperar los datos de la imagen desde GridFS
+            datosImagen = self.fs.get(idPortada).read()
+            return datosImagen
+        except Exception as e:
+            print("Error al obtener la portada:", e)
+            return None
+    
     def guardarLibro(self,titulo, autor, idPortada):
 
         libro = {
