@@ -1,6 +1,7 @@
 from customtkinter import *
 import tkinter as tk
 from tkinter import filedialog
+from PIL import Image
 import os
 
 class Vista:
@@ -13,12 +14,14 @@ class Vista:
 
         self.ventana = CTk()
         self.ventana.geometry("1024x640")
+        self.ventana.resizable(False, False)
         self.ventana.configure(fg_color="#2E4C39")
         self.ventana.title('Mi Biblioteca')
         self.ventana.iconbitmap('img/iconoLibros.ico')
         
         # Variables
         self.imagenPath = tk.StringVar()
+        self.imagenSalir = Image.open("img/iconoEncendido.ico")
 
         # self.etiquetaTitulo = CTkLabel(master=self.ventana,text="Titulo")
         # self.etiquetaTitulo.grid(row=0, column=0, padx=10, pady=5)
@@ -52,15 +55,59 @@ class Vista:
                                 command=self.guardarInfo,
                                 text_color="#F6FFF9",
                                 height=40,
-                                width=150,
+                                width=210,
                                 font=("Roboto", 18, "bold"),
                                 corner_radius=32,
                                 fg_color="#75CB92",
                                 hover_color="#2E4C39",
                                 border_color="#636E67",
                                 border_width=3)
-            # self.boton.place(relx=0.2, rely=0.35, anchor="center")
-        self.boton.grid(row=0, padx=10, pady=10)
+        self.boton.grid(row=0, column=0, padx=10, pady=10)
+
+        #BOTÓN DE MODIFICAR LIBRO
+        self.boton = CTkButton(master=self.frameMenu,
+                               text="Modificar libro",
+                                # command=self.guardarInfo,
+                                text_color="#F6FFF9",
+                                height=40,
+                                width=210,
+                                font=("Roboto", 18, "bold"),
+                                corner_radius=32,
+                                fg_color="#75CB92",
+                                hover_color="#2E4C39",
+                                border_color="#636E67",
+                                border_width=3)
+        self.boton.grid(row=0, column=1, padx=10, pady=10)
+
+        #BOTÓN DE ELIMINAR LIBRO
+        self.boton = CTkButton(master=self.frameMenu,
+                               text="Eliminar libro",
+                                # command=self.guardarInfo,
+                                text_color="#F6FFF9",
+                                height=40,
+                                width=210,
+                                font=("Roboto", 18, "bold"),
+                                corner_radius=32,
+                                fg_color="#75CB92",
+                                hover_color="#2E4C39",
+                                border_color="#636E67",
+                                border_width=3)
+        self.boton.grid(row=0, column=2, padx=10, pady=10)
+
+        #BOTÓN DE BUSQUEDA LIBRO
+        self.boton = CTkButton(master=self.frameMenu,
+                               text="Búsqueda...",
+                                # command=self.guardarInfo,
+                                text_color="#F6FFF9",
+                                height=40,
+                                width=210,
+                                font=("Roboto", 18, "bold"),
+                                corner_radius=32,
+                                fg_color="#75CB92",
+                                hover_color="#2E4C39",
+                                border_color="#636E67",
+                                border_width=3)
+        self.boton.grid(row=0, column=3, padx=10, pady=10)
 
         # #BOTÓN DE EXPLORACIÓN
         # self.botonExplorador = CTkButton(master=self.ventana,text="Abrir explorador", command=self.abrirExplorador)
@@ -80,16 +127,62 @@ class Vista:
         # self.marcoLibros.grid(row=1, columnspan=4, padx=10, pady=10)
         self.marcoLibros.place(relx=0.5, rely=0.5, anchor="center")
 
+        self.lienzoLibro = tk.Canvas(master=self.marcoLibros,width=200, height=300)
+        self.lienzoLibro.grid(row=0, column=0, padx=10, pady=10)
+        self.tituloLibro = CTkLabel(master=self.marcoLibros, text="")
+        self.tituloLibro.grid(row=1, column=0, padx=5, pady=5)
+
         #-------------------------FRAME CON MENU FINAL---------------------------------------
 
         self.frameMenuFinal = CTkFrame(master=self.ventana, width=925, height=50, fg_color="#F6FFF9", border_color="#636E67", border_width=3)
         # self.frameMenu.grid(row=0, column=0, padx=10, pady=10)
         self.frameMenuFinal.place(relx=0.5, rely=0.9, anchor="center")
 
-        self.lienzoLibro = tk.Canvas(master=self.marcoLibros,width=200, height=300)
-        self.lienzoLibro.grid(row=0, column=0, padx=10, pady=10)
-        self.tituloLibro = CTkLabel(master=self.marcoLibros, text="")
-        self.tituloLibro.grid(row=1, column=0, padx=5, pady=5)
+        #BOTÓN DE CONSULTAR LIBRO
+        self.boton = CTkButton(master=self.frameMenuFinal,
+                               text="Consultar libro",
+                                # command=self.guardarInfo,
+                                text_color="#F6FFF9",
+                                height=40,
+                                width=210,
+                                font=("Roboto", 18, "bold"),
+                                corner_radius=32,
+                                fg_color="#75CB92",
+                                hover_color="#2E4C39",
+                                border_color="#636E67",
+                                border_width=3)
+        self.boton.grid(row=0, column=0, padx=10, pady=10)
+
+        #BOTÓN DE MIBIBLIOTECA
+        self.boton = CTkButton(master=self.frameMenuFinal,
+                               text="Mi biblioteca",
+                                # command=self.guardarInfo,
+                                text_color="#F6FFF9",
+                                height=40,
+                                width=210,
+                                font=("Roboto", 18, "bold"),
+                                corner_radius=32,
+                                fg_color="#75CB92",
+                                hover_color="#2E4C39",
+                                border_color="#636E67",
+                                border_width=3)
+        self.boton.grid(row=0, column=1, padx=10, pady=10)
+
+        #BOTÓN DE SALIR
+        self.boton = CTkButton(master=self.frameMenuFinal,
+                               text="Salir",
+                                # command=self.guardarInfo,
+                                text_color="#F6FFF9",
+                                height=40,
+                                width=210,
+                                font=("Roboto", 18, "bold"),
+                                corner_radius=32,
+                                image=CTkImage(light_image=self.imagenSalir),
+                                fg_color="#ef404c",
+                                hover_color="#2E4C39",
+                                border_color="#636E67",
+                                border_width=3)
+        self.boton.grid(row=0, column=2, padx=127, pady=10)
 
         self.ventana.mainloop()
 
