@@ -1,0 +1,14 @@
+Opcion 1
+fg_color="#B4E219" - frames
+border_color="#EE6A1B"
+fg_color="#8C26CE" - botones
+
+Opcion 2:
+
+fg_color="#53F288"
+
+Imagen libro:
+https://pixabay.com/es/users/joa70-16807463/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=8312948
+
+Imagen biblioteca:
+https://pixabay.com/es/users/luboshouska-198496/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1204029
