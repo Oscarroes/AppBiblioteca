@@ -3,13 +3,9 @@ class Controlador:
         self.modelo = modelo
         self.fs = modelo.fs
 
-    def botonPresionado(self):
-        print("Botón presionado")
-
-        datos = self.modelo.consultarDatos()
-
-        for dato in datos:
-            print(dato)
+    def consultarTodo(self):
+        libros = self.modelo.consultarDatos()
+        return libros
 
     def traerLibro(self, titulo):
         libro = self.modelo.traerLibroPorTitulo(titulo)
@@ -17,8 +13,8 @@ class Controlador:
     def obtenerPortada(self, idPortada):
         return self.modelo.obtenerPortada(idPortada)
 
-    def guardarInfo(self, titulo, autor, datosImagen):
+    def guardarInfo(self, titulo, autor, genero, paginas, fecha, editorial, isbn, datosImagen, sinopsis):
         # Guardar la imagen en GridFS
         idPortada = self.fs.put(datosImagen, filename='portada.png')
-        self.modelo.guardarLibro(titulo, autor, idPortada)
+        self.modelo.guardarLibro(titulo, autor,genero, paginas, fecha, editorial, isbn, idPortada, sinopsis)
         print("libro guardado correctamente")

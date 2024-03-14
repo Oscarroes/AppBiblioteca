@@ -11,9 +11,9 @@ class Modelo:
         self.fs = gridfs.GridFS(self.db)
 
     def consultarDatos(self):
-        resultados = self.coleccion.find()
+        libros = self.coleccion.find()
 
-        return resultados
+        return libros
     
     def traerLibroPorTitulo(self,titulo):
         libro = self.coleccion.find_one({"titulo":titulo})
@@ -28,12 +28,18 @@ class Modelo:
             print("Error al obtener la portada:", e)
             return None
     
-    def guardarLibro(self,titulo, autor, idPortada):
+    def guardarLibro(self, titulo, autor, genero, paginas, fecha, editorial, isbn, idPortada, sinopsis):
 
         libro = {
             "titulo":titulo,
             "autor":autor,
-            "portada":idPortada
+            "genero":genero,
+            "paginas":paginas,
+            "fecha de publicacion":fecha,
+            "editorial":editorial,
+            "isbn":isbn,
+            "portada":idPortada,
+            "sinopsis":sinopsis
             }
         self.coleccion.insert_one(libro)
         
