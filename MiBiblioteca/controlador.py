@@ -10,6 +10,7 @@ class Controlador:
     def traerLibro(self, titulo):
         libro = self.modelo.traerLibroPorTitulo(titulo)
         return libro
+        
     def obtenerPortada(self, idPortada):
         return self.modelo.obtenerPortada(idPortada)
 

@@ -16,8 +16,8 @@ class Modelo:
         return libros
     
     def traerLibroPorTitulo(self,titulo):
-        libro = self.coleccion.find_one({"titulo":titulo})
-        return libro
+        libro = self.coleccion.find({"titulo": {"$regex": f".*{titulo}.*", "$options": "i"}})
+        return list(libro)
     
     def obtenerPortada(self, idPortada):
         try:
