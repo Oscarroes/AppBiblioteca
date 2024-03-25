@@ -54,9 +54,9 @@ class Vista:
                                 border_width=3)
         self.boton.grid(row=0, column=0, padx=10, pady=10)
 
-        #BOTÓN DE MODIFICAR LIBRO
+        #BOTÓN DE PRUEBA 1 LIBRO
         self.boton = CTkButton(master=self.frameMenu,
-                               text="Modificar libro",
+                               text="placeHolder libro",
                                 # command=self.guardarInfo,
                                 text_color="#F6FFF9",
                                 height=40,
@@ -69,9 +69,9 @@ class Vista:
                                 border_width=3)
         self.boton.grid(row=0, column=1, padx=10, pady=10)
 
-        #BOTÓN DE ELIMINAR LIBRO
+        #BOTÓN DE PRUEBA 2 LIBRO
         self.boton = CTkButton(master=self.frameMenu,
-                               text="Eliminar libro",
+                               text="placeHolder libro",
                                 # command=self.guardarInfo,
                                 text_color="#F6FFF9",
                                 height=40,
@@ -84,7 +84,7 @@ class Vista:
                                 border_width=3)
         self.boton.grid(row=0, column=2, padx=10, pady=10)
 
-        #BOMBOBOX DE BUSQUEDA LIBRO
+        #COMBOBOX DE BUSQUEDA LIBRO
         self.comboBox = customtkinter.CTkOptionMenu(master=self.frameMenu,
                                 values=["Busca por título", "Busca por autor", "Busca por género", "Busca por ISBN"],
                                 command=self.menuOpciones,
@@ -132,7 +132,7 @@ class Vista:
 
         #BOTÓN DE SALIR
         self.boton = CTkButton(master=self.frameMenuFinal,
-                               text="Salir",
+                                text="Salir",
                                 command=self.salir,
                                 text_color="#F6FFF9",
                                 height=40,
@@ -294,12 +294,20 @@ class Vista:
                 etiquetaTitulo.grid(row=1, column=i, padx=5, pady=5)
 
                 botonVerFicha = CTkButton(master=self.marcoLibros,
-                                            # command= lambda libro=libro: self.abrirVentanaVerFicha(libro),
                                             command= lambda libro=libro: self.llamarVistaFicha.abrirVentanaVerFicha(libro),
                                             text="Ver ficha",
                                             text_color="#F6FFF9",
                                             font=("Roboto", 18, "bold"),)
                 botonVerFicha.grid(row=2, column=i, padx=5, pady=5)
+
+                botonEliminarLibro = CTkButton(master=self.marcoLibros,
+                                            command=lambda idLibro=libro["_id"]: self.eliminarLibro(idLibro),
+                                            text="Eliminar libro",
+                                            text_color="#F6FFF9",
+                                            font=("Roboto", 18, "bold"),
+                                            fg_color="#ef404c",
+                                            hover_color="#2E4C39")
+                botonEliminarLibro.grid(row=3, column=i, padx=5, pady=5)
         else:
             # Si no se encontraron libros, muestra un mensaje al usuario
             messagebox.showinfo("Búsqueda por título", "No se encontraron libros con ese título")
@@ -325,18 +333,41 @@ class Vista:
                 # Guardar la referencia a la imagen para evitar que sea eliminada por el recolector de basura
                 lienzoPortada.imagen = imagen
 
-            # Crear una etiqueta para el título del libro y un botón para ver la ficha
+            # Crear una etiqueta para el título del libro, un botón para ver la ficha y otro para eliminar el libro
             etiquetaTitulo = CTkLabel(master=self.marcoLibros,
                                         text=libro["titulo"],
                                         font=("Roboto", 12, "bold"))
             etiquetaTitulo.grid(row=1, column=i, padx=5, pady=5)
 
             botonVerFicha = CTkButton(master=self.marcoLibros,
-                                        # command= lambda libro=libro: self.abrirVentanaVerFicha(libro),
                                         command= lambda libro=libro: self.llamarVistaFicha.abrirVentanaVerFicha(libro),
                                         text="Ver ficha",
                                         text_color="#F6FFF9",
                                         font=("Roboto", 18, "bold"),)
             botonVerFicha.grid(row=2, column=i, padx=5, pady=5)
+
+            botonEliminarLibro = CTkButton(master=self.marcoLibros,
+                                            command=lambda idLibro=libro["_id"]: self.eliminarLibro(idLibro),
+                                            text="Eliminar libro",
+                                            text_color="#F6FFF9",
+                                            font=("Roboto", 18, "bold"),
+                                            fg_color="#ef404c",
+                                            hover_color="#2E4C39")
+            botonEliminarLibro.grid(row=3, column=i, padx=5, pady=5)
+
+    #ELIMINAR LIBRO:
+            
+    def eliminarLibro(self, idLibro):
+
+        pregunta = messagebox.askyesno("Eliminar libro", "¿Estás seguro de que quieres eliminar este libro?")
+        if pregunta:
+            self.controlador.eliminarLibro(idLibro)
+            messagebox.showinfo("Eliminar libro", "El libro ha sido eliminado correctamente.")
+
+            # Limpiar el contenido anterior del marcoLibros
+            for widget in self.marcoLibros.winfo_children():
+                widget.destroy()
+            #Actualizar el listado de libros de la biblioteca   
+            self.mostrarLibros()
  
         

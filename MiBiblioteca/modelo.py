@@ -42,4 +42,21 @@ class Modelo:
             "sinopsis":sinopsis
             }
         self.coleccion.insert_one(libro)
+
+    def eliminarLibro(self,idLibro):
+        self.coleccion.delete_one({"_id": idLibro})
+
+    def modificarLibro(self, idLibro, titulo, autor, genero, paginas, fecha, editorial, isbn, idPortada, sinopsis):
+        libroActualizado = {
+            "titulo": titulo,
+            "autor": autor,
+            "genero": genero,
+            "paginas": paginas,
+            "fecha de publicacion": fecha,
+            "editorial": editorial,
+            "isbn": isbn,
+            "portada": idPortada,
+            "sinopsis": sinopsis
+        }
+        self.coleccion.update_one({"_id": idLibro}, {"$set": libroActualizado})
         

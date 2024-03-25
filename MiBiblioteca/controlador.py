@@ -19,3 +19,10 @@ class Controlador:
         idPortada = self.fs.put(datosImagen, filename='portada.png')
         self.modelo.guardarLibro(titulo, autor,genero, paginas, fecha, editorial, isbn, idPortada, sinopsis)
         print("libro guardado correctamente")
+    
+    def eliminarLibro(self, idLibro):
+        self.modelo.eliminarLibro(idLibro)
+
+    def modificarLibro(self, libro, titulo, autor, genero, paginas, fecha, editorial, isbn, datosImagen, sinopsis):
+        idPortada = self.fs.put(datosImagen, filename='portada.png')
+        self.modelo.modificarLibro(libro["_id"], titulo, autor, genero, paginas, fecha, editorial, isbn, idPortada, sinopsis)
