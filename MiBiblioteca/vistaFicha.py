@@ -5,37 +5,40 @@ import os
 
 class VistaFicha:
 
-    def __init__(self, ventana, controlador):
+    def __init__(self, ventana, controlador, vista):
         self.ventana = ventana
         self.controlador = controlador
+        self.vista = vista
         self.ventanaVerFicha = None
         self.ventanaModificar = None
 
+        self.imagenPath = tk.StringVar()
+
     def abrirVentanaVerFicha(self, libro):
         
-        ventanaVerFicha = tk.Toplevel(self.ventana)
-        ventanaVerFicha.geometry("896x896")
-        ventanaVerFicha.config(bg="#2E4C39")
-        ventanaVerFicha.title('Ficha del libro')
-        ventanaVerFicha.lift()
+        self.ventanaVerFicha = tk.Toplevel(self.ventana)
+        self.ventanaVerFicha.geometry("896x896")
+        self.ventanaVerFicha.config(bg="#2E4C39")
+        self.ventanaVerFicha.title('Ficha del libro')
+        self.ventanaVerFicha.lift()
 
         def cancelarVentanaVerFicha():
-            ventanaVerFicha.destroy()
+            self.ventanaVerFicha.destroy()
         
         def posicionarVentana():
-            ventanaVerFicha.lift()
+            self.ventanaVerFicha.lift()
 
         imagenPortada = self.controlador.obtenerPortada(libro["portada"])
 
         imagen = tk.PhotoImage(data=imagenPortada)
 
-        lienzoPortada = tk.Canvas(master=ventanaVerFicha, width=200, height=310)
+        lienzoPortada = tk.Canvas(master=self.ventanaVerFicha, width=200, height=310)
         lienzoPortada.create_image(0, 0, anchor=tk.NW, image=imagen)
         lienzoPortada.grid(row=0, column=0, rowspan=6, padx=10, pady=10)
 
         lienzoPortada.imagen = imagen
 
-        etiquetaTitulo = CTkLabel(master=ventanaVerFicha,
+        etiquetaTitulo = CTkLabel(master=self.ventanaVerFicha,
                                     text="Título: " + libro["titulo"],
                                     justify="left",
                                     anchor="w",
@@ -45,7 +48,7 @@ class VistaFicha:
         etiquetaTitulo.grid(row=0, column=1, padx=10, pady=5)
         
 
-        etiquetaAutor = CTkLabel(master=ventanaVerFicha,
+        etiquetaAutor = CTkLabel(master=self.ventanaVerFicha,
                                     text="Autor: " + libro["autor"],
                                     justify="left",
                                     anchor="w",
@@ -54,7 +57,7 @@ class VistaFicha:
                                     text_color="#F6FFF9")
         etiquetaAutor.grid(row=1, column=1, padx=10, pady=5)
 
-        etiquetaGenero = CTkLabel(master=ventanaVerFicha,
+        etiquetaGenero = CTkLabel(master=self.ventanaVerFicha,
                                     text="Género: " + libro["genero"],
                                     justify="left",
                                     anchor="w",
@@ -63,7 +66,7 @@ class VistaFicha:
                                     text_color="#F6FFF9")
         etiquetaGenero.grid(row=2, column=1, padx=10, pady=5)
 
-        etiquetaPaginas = CTkLabel(master=ventanaVerFicha,
+        etiquetaPaginas = CTkLabel(master=self.ventanaVerFicha,
                                     text="Páginas: " + libro["paginas"],
                                     justify="left",
                                     anchor="w",
@@ -72,7 +75,7 @@ class VistaFicha:
                                     text_color="#F6FFF9")
         etiquetaPaginas.grid(row=3, column=1, padx=10, pady=5)
 
-        etiquetaFecha = CTkLabel(master=ventanaVerFicha,
+        etiquetaFecha = CTkLabel(master=self.ventanaVerFicha,
                                     text="Fecha de publicación: " + libro["fecha de publicacion"],
                                     justify="left",
                                     anchor="w",
@@ -81,7 +84,7 @@ class VistaFicha:
                                     text_color="#F6FFF9")
         etiquetaFecha.grid(row=4, column=1, columnspan=2, padx=10, pady=5)
 
-        etiquetaEditorial = CTkLabel(master=ventanaVerFicha,
+        etiquetaEditorial = CTkLabel(master=self.ventanaVerFicha,
                                     text="Editorial: " + libro["editorial"],
                                     justify="left",
                                     anchor="w",
@@ -90,7 +93,7 @@ class VistaFicha:
                                     text_color="#F6FFF9")
         etiquetaEditorial.grid(row=5, column=1, padx=10, pady=5)
 
-        etiquetaISBN = CTkLabel(master=ventanaVerFicha,
+        etiquetaISBN = CTkLabel(master=self.ventanaVerFicha,
                                     text="ISBN: " + libro["isbn"],
                                     justify="left",
                                     anchor="w",
@@ -99,7 +102,7 @@ class VistaFicha:
                                     text_color="#F6FFF9")
         etiquetaISBN.grid(row=6, column=1, padx=10, pady=5)
 
-        marcoSinopsis = CTkScrollableFrame(master=ventanaVerFicha,width=600, height=300, fg_color="#F6FFF9", border_color="#636E67", border_width=3,
+        marcoSinopsis = CTkScrollableFrame(master=self.ventanaVerFicha,width=600, height=300, fg_color="#F6FFF9", border_color="#636E67", border_width=3,
                                 orientation="horizontal", scrollbar_button_color="#75CB92")
         marcoSinopsis.grid(row=7, column=0, columnspan=2, padx=10, pady=5)
 
@@ -113,7 +116,7 @@ class VistaFicha:
 
         #BOTÓN MODIFICAR------------------------------------------------------------
 
-        self.botonModificar = CTkButton(master=ventanaVerFicha,
+        self.botonModificar = CTkButton(master=self.ventanaVerFicha,
                                         text="Modificar libro",
                                         # command=lambda: [self.abrirVentanaModificar(), posicionarVentana()],
                                         command=lambda: self.abrirVentanaModificar(libro),
@@ -130,7 +133,7 @@ class VistaFicha:
 
         #BOTÓN CANCELAR-----------------------------------------------------------
 
-        self.botonCancelar = CTkButton(master=ventanaVerFicha,text="Cancelar",
+        self.botonCancelar = CTkButton(master=self.ventanaVerFicha,text="Cancelar",
                                         command=cancelarVentanaVerFicha,
                                         text_color="#F6FFF9",
                                         height=40,
@@ -143,37 +146,31 @@ class VistaFicha:
                                         border_width=3)
         self.botonCancelar.grid(row=8, column=1, padx=10, pady=10)
 
-
-    #////////////////////////////////////////////////////////////////////////////
-    #////////////////////////////////////////////////////////////////////////////
-    #////////////////////////////////////////////////////////////////////////////
     #////////////////////////////////////////////////////////////////////////////
     #VISTA MODIFICAR -----------------------------------------------------------
-    #////////////////////////////////////////////////////////////////////////////
-    #////////////////////////////////////////////////////////////////////////////
-    #////////////////////////////////////////////////////////////////////////////
     #////////////////////////////////////////////////////////////////////////////
 
         
     def abrirVentanaModificar(self,libro):
         
-        ventanaModificar = tk.Toplevel(self.ventanaVerFicha)
-        ventanaModificar.geometry("896x896")
-        ventanaModificar.config(bg="#2E4C39")
-        ventanaModificar.title('Modifica el libro')
-        ventanaModificar.lift()
+        self.ventanaModificar = tk.Toplevel(self.ventanaVerFicha)
+        self.ventanaModificar.geometry("896x896")
+        self.ventanaModificar.config(bg="#2E4C39")
+        self.ventanaModificar.title('Modifica el libro')
+        self.ventanaModificar.lift()
+        
 
         def posicionarVentana():
-            ventanaModificar.lift()
+            self.ventanaModificar.lift()
         
         def cancelarVentanaModificar():
-            ventanaModificar.destroy()
+            self.ventanaModificar.destroy()
 
-        self.frameSeparador = CTkFrame(master=ventanaModificar, fg_color="#2E4C39", height=10)
+        self.frameSeparador = CTkFrame(master=self.ventanaModificar, fg_color="#2E4C39", height=10)
         self.frameSeparador.grid(row=0, column=0, padx=10, pady=5)
 
         #ENTRADA TÍTULO--------------------------------------------------
-        self.etiquetaTitulo = CTkLabel(master=ventanaModificar,
+        self.etiquetaTitulo = CTkLabel(master=self.ventanaModificar,
                                     text="Nuevo título: ",
                                     justify="left",
                                     anchor="w",
@@ -181,13 +178,13 @@ class VistaFicha:
                                     font=("Roboto", 18, "bold"),
                                     text_color="#F6FFF9")
         self.etiquetaTitulo.grid(row=1, column=0, padx=10, pady=5)
-        self.entradaTitulo = CTkEntry(master=ventanaModificar,
+        self.entradaTitulo = CTkEntry(master=self.ventanaModificar,
                                     font=("Roboto", 12, "bold"),
                                     width=200)
         self.entradaTitulo.grid(row=1, column=1, padx=10, pady=5)
 
         #ENTRADA AUTOR-------------------------------------------------------
-        self.etiquetaAutor = CTkLabel(master=ventanaModificar,
+        self.etiquetaAutor = CTkLabel(master=self.ventanaModificar,
                                     text="Nuevo Autor: ",
                                     justify="left",
                                     anchor="w",
@@ -195,14 +192,14 @@ class VistaFicha:
                                     font=("Roboto", 18, "bold"),
                                     text_color="#F6FFF9")
         self.etiquetaAutor.grid(row=2, column=0, padx=10, pady=5)
-        self.entradaAutor = CTkEntry(master=ventanaModificar,
+        self.entradaAutor = CTkEntry(master=self.ventanaModificar,
                                     font=("Roboto", 12, "bold"),
                                     width=200)
         self.entradaAutor.grid(row=2, column=1, padx=10, pady=0)
 
         #ENTRADA GÉNERO-------------------------------------------------------
 
-        self.etiquetaGenero = CTkLabel(master=ventanaModificar,
+        self.etiquetaGenero = CTkLabel(master=self.ventanaModificar,
                                     text="Nuevo género: ",
                                     justify="left",
                                     anchor="w",
@@ -210,14 +207,14 @@ class VistaFicha:
                                     font=("Roboto", 18, "bold"),
                                     text_color="#F6FFF9")
         self.etiquetaGenero.grid(row=3, column=0, padx=10, pady=5)
-        self.entradaGenero = CTkEntry(master=ventanaModificar,
+        self.entradaGenero = CTkEntry(master=self.ventanaModificar,
                                     font=("Roboto", 12, "bold"),
                                     width=200)
         self.entradaGenero.grid(row=3, column=1, padx=10, pady=5)
 
         #ENTRADA PÁGINAS-------------------------------------------------------
 
-        self.etiquetaPaginas = CTkLabel(master=ventanaModificar,
+        self.etiquetaPaginas = CTkLabel(master=self.ventanaModificar,
                                     text="Nuevo nº de páginas: ",
                                     justify="left",
                                     anchor="w",
@@ -225,14 +222,14 @@ class VistaFicha:
                                     font=("Roboto", 18, "bold"),
                                     text_color="#F6FFF9")
         self.etiquetaPaginas.grid(row=4, column=0, padx=10, pady=5)
-        self.entradaPaginas = CTkEntry(master=ventanaModificar,
+        self.entradaPaginas = CTkEntry(master=self.ventanaModificar,
                                     font=("Roboto", 12, "bold"),
                                     width=200)
         self.entradaPaginas.grid(row=4, column=1, padx=10, pady=5)
 
         #ENTRADA FECHA DE PUBLICACIÓN-------------------------------------------------------
 
-        self.etiquetaFecha = CTkLabel(master=ventanaModificar,
+        self.etiquetaFecha = CTkLabel(master=self.ventanaModificar,
                                     text="Nueva fecha: ",
                                     justify="left",
                                     anchor="w",
@@ -240,7 +237,7 @@ class VistaFicha:
                                     font=("Roboto", 18, "bold"),
                                     text_color="#F6FFF9")
         self.etiquetaFecha.grid(row=5, column=0, padx=10, pady=5)
-        self.entradaFecha = CTkEntry(master=ventanaModificar,
+        self.entradaFecha = CTkEntry(master=self.ventanaModificar,
                                     font=("Roboto", 12, "bold"),
                                     width=200,
                                     placeholder_text="DD/MM/AAAA",
@@ -249,7 +246,7 @@ class VistaFicha:
 
         #ENTRADA EDITORIAL-------------------------------------------------------
 
-        self.etiquetaEditorial = CTkLabel(master=ventanaModificar,
+        self.etiquetaEditorial = CTkLabel(master=self.ventanaModificar,
                                     text="Nueva editorial: ",
                                     justify="left",
                                     anchor="w",
@@ -257,14 +254,14 @@ class VistaFicha:
                                     font=("Roboto", 18, "bold"),
                                     text_color="#F6FFF9")
         self.etiquetaEditorial.grid(row=6, column=0, padx=10, pady=5)
-        self.entradaEditorial = CTkEntry(master=ventanaModificar,
+        self.entradaEditorial = CTkEntry(master=self.ventanaModificar,
                                     font=("Roboto", 12, "bold"),
                                     width=200)
         self.entradaEditorial.grid(row=6, column=1, padx=10, pady=5)
 
         #ENTRADA ISBN-------------------------------------------------------
 
-        self.etiquetaISBN = CTkLabel(master=ventanaModificar,
+        self.etiquetaISBN = CTkLabel(master=self.ventanaModificar,
                                     text="Nuevo ISBN: ",
                                     justify="left",
                                     anchor="w",
@@ -272,14 +269,14 @@ class VistaFicha:
                                     font=("Roboto", 18, "bold"),
                                     text_color="#F6FFF9")
         self.etiquetaISBN.grid(row=7, column=0, padx=10, pady=5)
-        self.entradaISBN = CTkEntry(master=ventanaModificar,
+        self.entradaISBN = CTkEntry(master=self.ventanaModificar,
                                     font=("Roboto", 12, "bold"),
                                     width=200)
         self.entradaISBN.grid(row=7, column=1, padx=10, pady=5)
 
         #ENTRADA PORTADA-------------------------------------------------------
 
-        self.etiquetaPortada = CTkLabel(master=ventanaModificar,
+        self.etiquetaPortada = CTkLabel(master=self.ventanaModificar,
                                         text="Nueva Portada: ",
                                         justify="left",
                                         anchor="w",
@@ -287,7 +284,7 @@ class VistaFicha:
                                         font=("Roboto", 18, "bold"),
                                         text_color="#F6FFF9")
         self.etiquetaPortada.grid(row=8, column=0, padx=10, pady=5)
-        self.entradaPortada = CTkEntry(master=ventanaModificar,
+        self.entradaPortada = CTkEntry(master=self.ventanaModificar,
                                         textvariable=self.imagenPath,
                                         state="readonly",
                                         font=("Roboto", 12, "bold"),
@@ -295,7 +292,7 @@ class VistaFicha:
         self.entradaPortada.grid(row=8, column=2, padx=10, pady=5)
 
         #BOTÓN DE EXPLORACIÓN
-        self.botonExplorador = CTkButton(master=ventanaModificar,text="Abrir explorador",
+        self.botonExplorador = CTkButton(master=self.ventanaModificar,text="Abrir explorador",
                                         command=lambda: [self.abrirExplorador(),posicionarVentana()],
                                         width=200,
                                         text_color="#F6FFF9",
@@ -308,7 +305,7 @@ class VistaFicha:
 
         #ENTRADA SINOPSIS-------------------------------------------------------
 
-        self.etiquetaSinopsis = CTkLabel(master=ventanaModificar,
+        self.etiquetaSinopsis = CTkLabel(master=self.ventanaModificar,
                                     text="Nueva sinopsis: ",
                                     justify="left",
                                     anchor="nw",
@@ -317,17 +314,17 @@ class VistaFicha:
                                     font=("Roboto", 18, "bold"),
                                     text_color="#F6FFF9")
         self.etiquetaSinopsis.grid(row=9, column=0, padx=10, pady=5)
-        self.entradaSinopsis = CTkTextbox(master=ventanaModificar,
+        self.entradaSinopsis = CTkTextbox(master=self.ventanaModificar,
                                     font=("Roboto", 12, "bold"),
                                     scrollbar_button_color="#75CB92",
                                     width=430,
                                     height=250)
         self.entradaSinopsis.grid(row=9, column=1, columnspan=2, padx=10, pady=5)
 
-        #BOTÓN AGREGAR------------------------------------------------------------
+        #BOTÓN MODIFICAR LIBRO------------------------------------------------------------
 
-        self.botonModificaLibro = CTkButton(master=ventanaModificar,
-                                        text="Añadir libro",
+        self.botonModificaLibro = CTkButton(master=self.ventanaModificar,
+                                        text="Modificar libro",
                                         command=lambda: self.modificarLibro(libro),
                                         text_color="#F6FFF9",
                                         height=40,
@@ -342,7 +339,7 @@ class VistaFicha:
 
         #BOTÓN CANCELAR-----------------------------------------------------------
 
-        self.botonCancelar = CTkButton(master=ventanaModificar,text="Cancelar",
+        self.botonCancelar = CTkButton(master=self.ventanaModificar,text="Cancelar",
                                         command=cancelarVentanaModificar,
                                         text_color="#F6FFF9",
                                         height=40,
@@ -366,6 +363,12 @@ class VistaFicha:
 
     def modificarLibro(self, libro):
 
+        # Verificar si se ha seleccionado una nueva portada
+        if not self.imagenPath.get():
+            messagebox.showerror("Error", "El campo nueva portada es obligatorio.")
+            self.ventanaModificar.lift()
+            return
+
         titulo = self.entradaTitulo.get()
         autor = self.entradaAutor.get()
         genero = self.entradaGenero.get()
@@ -375,38 +378,39 @@ class VistaFicha:
         isbn = self.entradaISBN.get()
         sinopsis = self.entradaSinopsis.get("1.0", END)
 
-        # Leer la imagen seleccionada
-        with open(self.imagenPath.get(), 'rb') as f:
-            datosImagen = f.read()
+        if self.imagenPath.get():
+            with open(self.imagenPath.get(), 'rb') as f:
+                datosImagen = f.read()
 
-        # Modificar el libro utilizando el controlador
+        else:
+            # Si no se ha seleccionado una nueva imagen, se mantiene la imagen original
+            datosImagen = libro["portada"]
+
+        # Si los campos están vacíos se cargan los originales
+        if not titulo:
+            titulo = libro["titulo"]
+        if not autor:
+            autor = libro["autor"]
+        if not genero:
+            genero = libro["genero"]
+        if not paginas:
+            paginas = libro["paginas"]
+        if not fecha:
+            fecha = libro["fecha de publicacion"]
+        if not editorial:
+            editorial = libro["editorial"]
+        if not isbn:
+            isbn = libro["isbn"]
+        if not sinopsis.strip():
+            sinopsis = libro["sinopsis"]
+
+        # Modificar el libro
         self.controlador.modificarLibro(libro, titulo, autor, genero, paginas, fecha, editorial, isbn, datosImagen, sinopsis)
         messagebox.showinfo("Modificar Libro", "El libro " + titulo +" ha sido modificado")
         self.ventanaModificar.destroy()
+        self.ventanaVerFicha.destroy()
+        self.vista.actualizarMarcoLibros()
+
     
-
-
-        # #Si no se introducen valores, carga los valores originales
-        # if self.entradaTitulo.get() == "":
-        #     titulo = titulo
-        # if self.entradaAutor.get() == "":
-        #     autor = autor
-        # if self.entradaGenero.get() == "":
-        #     genero = genero
-        # if self.entradaPaginas.get() == "":
-        #     paginas = paginas
-        # if self.entradaFecha.get() == "":
-        #     fecha = fecha
-        # if self.entradaEditorial.get() == "":
-        #     editorial = editorial
-        # if self.entradaISBN.get() == "":
-        #     isbn = isbn
-        # if self.entradaSinopsis.get("1.0", END) == "":
-        #     sinopsis = sinopsis
-
-        # # Si no se carga imagen carga la imagen original
-        # if self.imagenPath.get() == "":
-        #     rutaImagenPorDefecto = 'img/portadaPorDefecto.png'
-        #     self.imagenPath.set(rutaImagenPorDefecto)
 
 

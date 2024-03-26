@@ -5,9 +5,11 @@ import os
 
 class VistaInsertar:
 
-    def __init__(self, ventana, controlador):
+    def __init__(self, ventana, controlador, vista):
         self.ventana = ventana
         self.controlador = controlador
+        self.vista = vista 
+
         self.imagenPath = tk.StringVar()
         self.ventanaInsertar = None
 
@@ -264,8 +266,6 @@ class VistaInsertar:
         if self.imagenPath.get() == "":
             rutaImagenPorDefecto = 'img/portadaPorDefecto.png'
             self.imagenPath.set(rutaImagenPorDefecto)
-            
-            # return
 
         # Leer la imagen seleccionada
         with open(self.imagenPath.get(), 'rb') as f:
@@ -274,4 +274,5 @@ class VistaInsertar:
         self.controlador.guardarInfo(titulo, autor, genero, paginas, fecha, editorial, isbn, datosImagen, sinopsis)
         self.limpiarCampos()
         messagebox.showinfo("Añadir Libro", "El libro " + titulo +" ha sido añadido a la biblioteca")
+        self.vista.actualizarMarcoLibros()
         

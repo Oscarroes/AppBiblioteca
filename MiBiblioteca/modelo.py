@@ -19,6 +19,14 @@ class Modelo:
         libro = self.coleccion.find({"titulo": {"$regex": f".*{titulo}.*", "$options": "i"}})
         return list(libro)
     
+    def traerLibroPorAutor(self,autor):
+        libro = self.coleccion.find({"autor": {"$regex": f".*{autor}.*", "$options": "i"}})
+        return list(libro)
+    
+    def traerLibroPorGenero(self,genero):
+        libro = self.coleccion.find({"genero": {"$regex": f".*{genero}.*", "$options": "i"}})
+        return list(libro)
+    
     def obtenerPortada(self, idPortada):
         try:
             # Recuperar los datos de la imagen desde GridFS

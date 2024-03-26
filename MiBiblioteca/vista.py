@@ -25,8 +25,9 @@ class Vista:
         self.ventana.iconbitmap('img/iconoLibros.ico')
 
         # Inicialización de las VISTAS secundarias:
-        self.llamarVistaInsertar = VistaInsertar(self.ventana, self.controlador)
-        self.llamarVistaFicha = VistaFicha(self.ventana, self.controlador)
+        self.llamarVistaInsertar = VistaInsertar(self.ventana, self.controlador, self)
+        self.llamarVistaFicha = VistaFicha(self.ventana, self.controlador, self)
+        
         
         # Variables
         self.imagenPath = tk.StringVar()
@@ -86,7 +87,7 @@ class Vista:
 
         #COMBOBOX DE BUSQUEDA LIBRO
         self.comboBox = customtkinter.CTkOptionMenu(master=self.frameMenu,
-                                values=["Busca por título", "Busca por autor", "Busca por género", "Busca por ISBN"],
+                                values=["Busca por título", "Busca por autor", "Busca por género"],
                                 command=self.menuOpciones,
                                 text_color="#F6FFF9",
                                 height=40,
@@ -184,6 +185,79 @@ class Vista:
                                         border_width=3)
         self.botonBuscarPorTitulo.grid(row=2, column=0, columnspan=2, padx=10, pady=20)
 
+    #--------------------VENTANA BUSCAR POR AUTOR---------------------------------------------------------
+    def abrirVentanaAutor(self):
+        VentanaAutor = tk.Toplevel(self.ventana)
+        VentanaAutor.geometry("448x320")
+        VentanaAutor.config(bg="#2E4C39")
+        VentanaAutor.title('Búsqueda por autor')
+        VentanaAutor.lift()
+
+        self.etiquetaAutor = CTkLabel(master=VentanaAutor,
+                                       text="Autor: ",
+                                       justify="left",
+                                       anchor="w",
+                                       width=100,
+                                       font=("Roboto", 18, "bold"),
+                                       text_color="#F6FFF9")
+        self.etiquetaAutor.grid(row=1, column=0, padx=10, pady=20)
+
+        self.entradaAutor = CTkEntry(master=VentanaAutor,
+                                       font=("Roboto", 12, "bold"),
+                                       width=200)
+        self.entradaAutor.grid(row=1, column=1, padx=10, pady=20)
+
+        self.botonBuscarPorAutor = CTkButton(master=VentanaAutor,
+                                        text="Buscar libro",
+                                        command=self.buscarLibroPorAutor,
+                                        text_color="#F6FFF9",
+                                        height=40,
+                                        width=210,
+                                        font=("Roboto", 18, "bold"),
+                                        corner_radius=32,
+                                        fg_color="#75CB92",
+                                        hover_color="#4502A0",
+                                        border_color="#636E67",
+                                        border_width=3)
+        self.botonBuscarPorAutor.grid(row=2, column=0, columnspan=2, padx=10, pady=20)
+
+    #--------------------VENTANA BUSCAR POR GENERO---------------------------------------------------------
+    def abrirVentanaGenero(self):
+        VentanaGenero = tk.Toplevel(self.ventana)
+        VentanaGenero.geometry("448x320")
+        VentanaGenero.config(bg="#2E4C39")
+        VentanaGenero.title('Búsqueda por género')
+        VentanaGenero.lift()
+
+        self.etiquetaGenero = CTkLabel(master=VentanaGenero,
+                                       text="Género: ",
+                                       justify="left",
+                                       anchor="w",
+                                       width=100,
+                                       font=("Roboto", 18, "bold"),
+                                       text_color="#F6FFF9")
+        self.etiquetaGenero.grid(row=1, column=0, padx=10, pady=20)
+
+        self.entradaGenero = CTkEntry(master=VentanaGenero,
+                                       font=("Roboto", 12, "bold"),
+                                       width=200)
+        self.entradaGenero.grid(row=1, column=1, padx=10, pady=20)
+
+        self.botonBuscarPorGenero = CTkButton(master=VentanaGenero,
+                                        text="Buscar libro",
+                                        command=self.buscarLibroPorGenero,
+                                        text_color="#F6FFF9",
+                                        height=40,
+                                        width=210,
+                                        font=("Roboto", 18, "bold"),
+                                        corner_radius=32,
+                                        fg_color="#75CB92",
+                                        hover_color="#4502A0",
+                                        border_color="#636E67",
+                                        border_width=3)
+        self.botonBuscarPorGenero.grid(row=2, column=0, columnspan=2, padx=10, pady=20)
+
+
     #--------------------FUNCIONES---------------------------------------------------------    
     
     def salir(self):
@@ -192,6 +266,10 @@ class Vista:
     def menuOpciones(self, opcion):
         if opcion == "Busca por título":
             self.abrirVentanaTitulo()
+        if opcion == "Busca por autor":
+            self.abrirVentanaAutor()
+        if opcion == "Busca por género":
+            self.abrirVentanaGenero()
 
     #Función para guardar libro:
     def guardarInfo(self):
@@ -256,6 +334,8 @@ class Vista:
         self.entradaISBN.delete(0, END)
         self.entradaSinopsis.delete("1.0", END)
 
+
+    #BUSCAR LIBRO POR TITULO --------------------------------------------------------------
     def buscarLibroPorTitulo(self):
 
         # Limpiar el contenido anterior del marcoLibros
@@ -312,6 +392,122 @@ class Vista:
             # Si no se encontraron libros, muestra un mensaje al usuario
             messagebox.showinfo("Búsqueda por título", "No se encontraron libros con ese título")
 
+    #BUSCAR LIBRO POR AUTOR --------------------------------------------------------------
+            
+    def buscarLibroPorAutor(self):
+
+        # Limpiar el contenido anterior del marcoLibros
+        for widget in self.marcoLibros.winfo_children():
+            widget.destroy()
+        autor = self.entradaAutor.get()
+        libros = self.controlador.traerLibroAutor(autor)
+
+        # Convertir el cursor a una lista para poder verificar si hay algún libro
+        libros = list(libros)
+
+        if libros:
+
+            for i, libro in enumerate(libros):
+                #Creamos un lienzo para la portada del libro
+                lienzoPortada = tk.Canvas(master=self.marcoLibros, width=200, height=310)
+                lienzoPortada.grid(row=0, column=i, padx=10, pady=10)
+
+                #Obtenemos la imagen de la portada desde GridFS
+                imagenPortada = self.controlador.obtenerPortada(libro["portada"])
+
+                if imagenPortada:
+                    # Convertir los datos de la imagen en un objeto PhotoImage
+                    imagen = tk.PhotoImage(data=imagenPortada)
+
+                    # Mostrar la imagen en el lienzo
+                    lienzoPortada.create_image(0, 0, anchor=tk.NW, image=imagen)
+
+                    # Guardar la referencia a la imagen para evitar que sea eliminada por el recolector de basura
+                    lienzoPortada.imagen = imagen
+
+                # Crear una etiqueta para el título del libro y un botón para ver la ficha
+                etiquetaTitulo = CTkLabel(master=self.marcoLibros,
+                                            text=libro["titulo"],
+                                            font=("Roboto", 12, "bold"))
+                etiquetaTitulo.grid(row=1, column=i, padx=5, pady=5)
+
+                botonVerFicha = CTkButton(master=self.marcoLibros,
+                                            command= lambda libro=libro: self.llamarVistaFicha.abrirVentanaVerFicha(libro),
+                                            text="Ver ficha",
+                                            text_color="#F6FFF9",
+                                            font=("Roboto", 18, "bold"),)
+                botonVerFicha.grid(row=2, column=i, padx=5, pady=5)
+
+                botonEliminarLibro = CTkButton(master=self.marcoLibros,
+                                            command=lambda idLibro=libro["_id"]: self.eliminarLibro(idLibro),
+                                            text="Eliminar libro",
+                                            text_color="#F6FFF9",
+                                            font=("Roboto", 18, "bold"),
+                                            fg_color="#ef404c",
+                                            hover_color="#2E4C39")
+                botonEliminarLibro.grid(row=3, column=i, padx=5, pady=5)
+        else:
+            # Si no se encontraron libros, muestra un mensaje al usuario
+            messagebox.showinfo("Búsqueda por autor", "No se encontraron libros con ese autor")
+
+    #BUSCAR LIBRO POR GENERO --------------------------------------------------------------
+            
+    def buscarLibroPorGenero(self):
+
+        # Limpiar el contenido anterior del marcoLibros
+        for widget in self.marcoLibros.winfo_children():
+            widget.destroy()
+        genero = self.entradaGenero.get()
+        libros = self.controlador.traerLibroGenero(genero)
+
+        # Convertir el cursor a una lista para poder verificar si hay algún libro
+        libros = list(libros)
+
+        if libros:
+
+            for i, libro in enumerate(libros):
+                #Creamos un lienzo para la portada del libro
+                lienzoPortada = tk.Canvas(master=self.marcoLibros, width=200, height=310)
+                lienzoPortada.grid(row=0, column=i, padx=10, pady=10)
+
+                #Obtenemos la imagen de la portada desde GridFS
+                imagenPortada = self.controlador.obtenerPortada(libro["portada"])
+
+                if imagenPortada:
+                    # Convertir los datos de la imagen en un objeto PhotoImage
+                    imagen = tk.PhotoImage(data=imagenPortada)
+
+                    # Mostrar la imagen en el lienzo
+                    lienzoPortada.create_image(0, 0, anchor=tk.NW, image=imagen)
+
+                    # Guardar la referencia a la imagen para evitar que sea eliminada por el recolector de basura
+                    lienzoPortada.imagen = imagen
+
+                # Crear una etiqueta para el título del libro y un botón para ver la ficha
+                etiquetaTitulo = CTkLabel(master=self.marcoLibros,
+                                            text=libro["titulo"],
+                                            font=("Roboto", 12, "bold"))
+                etiquetaTitulo.grid(row=1, column=i, padx=5, pady=5)
+
+                botonVerFicha = CTkButton(master=self.marcoLibros,
+                                            command= lambda libro=libro: self.llamarVistaFicha.abrirVentanaVerFicha(libro),
+                                            text="Ver ficha",
+                                            text_color="#F6FFF9",
+                                            font=("Roboto", 18, "bold"),)
+                botonVerFicha.grid(row=2, column=i, padx=5, pady=5)
+
+                botonEliminarLibro = CTkButton(master=self.marcoLibros,
+                                            command=lambda idLibro=libro["_id"]: self.eliminarLibro(idLibro),
+                                            text="Eliminar libro",
+                                            text_color="#F6FFF9",
+                                            font=("Roboto", 18, "bold"),
+                                            fg_color="#ef404c",
+                                            hover_color="#2E4C39")
+                botonEliminarLibro.grid(row=3, column=i, padx=5, pady=5)
+        else:
+            # Si no se encontraron libros, muestra un mensaje al usuario
+            messagebox.showinfo("Búsqueda por género", "No se encontraron libros con ese género")
+
     def mostrarLibros(self):
         libros = self.controlador.consultarTodo()
 
@@ -365,9 +561,13 @@ class Vista:
             messagebox.showinfo("Eliminar libro", "El libro ha sido eliminado correctamente.")
 
             # Limpiar el contenido anterior del marcoLibros
-            for widget in self.marcoLibros.winfo_children():
-                widget.destroy()
+            self.actualizarMarcoLibros()
+
+    def actualizarMarcoLibros(self):
+        # Limpiar el contenido anterior del marcoLibros
+        for widget in self.marcoLibros.winfo_children():
+            widget.destroy()
             #Actualizar el listado de libros de la biblioteca   
-            self.mostrarLibros()
+        self.mostrarLibros()
  
         
