@@ -1,6 +1,7 @@
 import tkinter as tk
 from customtkinter import *
 from tkinter import messagebox
+from PIL import Image
 import os
 
 class VistaFicha:
@@ -20,6 +21,7 @@ class VistaFicha:
         self.ventanaVerFicha.geometry("896x896")
         self.ventanaVerFicha.config(bg="#2E4C39")
         self.ventanaVerFicha.title('Ficha del libro')
+        self.ventanaVerFicha.iconbitmap('img/iconoLibros.ico')
         self.ventanaVerFicha.lift()
 
         def cancelarVentanaVerFicha():
@@ -102,8 +104,8 @@ class VistaFicha:
                                     text_color="#F6FFF9")
         etiquetaISBN.grid(row=6, column=1, padx=10, pady=5)
 
-        marcoSinopsis = CTkScrollableFrame(master=self.ventanaVerFicha,width=600, height=300, fg_color="#F6FFF9", border_color="#636E67", border_width=3,
-                                orientation="horizontal", scrollbar_button_color="#75CB92")
+        marcoSinopsis = CTkScrollableFrame(master=self.ventanaVerFicha,width=600, height=300, fg_color="#F6FFF9", border_color="#4C2E41", border_width=3,
+                                orientation="horizontal", scrollbar_button_color="#42594B")
         marcoSinopsis.grid(row=7, column=0, columnspan=2, padx=10, pady=5)
 
         etiquetaSinopsis = CTkLabel(master=marcoSinopsis,
@@ -125,9 +127,9 @@ class VistaFicha:
                                         width=210,
                                         font=("Roboto", 18, "bold"),
                                         corner_radius=32,
-                                        fg_color="#75CB92",
-                                        hover_color="#4502A0",
-                                        border_color="#636E67",
+                                        fg_color="#42594B",
+                                        hover_color="#2E324C",
+                                        border_color="#4C2E41",
                                         border_width=3)
         self.botonModificar.grid(row=8, column=0, padx=10, pady=10)
 
@@ -140,9 +142,9 @@ class VistaFicha:
                                         width=210,
                                         font=("Roboto", 18, "bold"),
                                         corner_radius=32,
-                                        fg_color="#75CB92",
-                                        hover_color="#4502A0",
-                                        border_color="#636E67",
+                                        fg_color="#42594B",
+                                        hover_color="#2E324C",
+                                        border_color="#4C2E41",
                                         border_width=3)
         self.botonCancelar.grid(row=8, column=1, padx=10, pady=10)
 
@@ -157,6 +159,7 @@ class VistaFicha:
         self.ventanaModificar.geometry("896x896")
         self.ventanaModificar.config(bg="#2E4C39")
         self.ventanaModificar.title('Modifica el libro')
+        self.ventanaModificar.iconbitmap('img/iconoLibros.ico')
         self.ventanaModificar.lift()
         
 
@@ -297,9 +300,9 @@ class VistaFicha:
                                         width=200,
                                         text_color="#F6FFF9",
                                         font=("Roboto", 18, "bold"),
-                                        fg_color="#75CB92",
-                                        hover_color="#4502A0",
-                                        border_color="#636E67",
+                                        fg_color="#42594B",
+                                        hover_color="#2E324C",
+                                        border_color="#4C2E41",
                                         border_width=3)
         self.botonExplorador.grid(row=8, column=1, padx=10, pady=5)
 
@@ -316,7 +319,7 @@ class VistaFicha:
         self.etiquetaSinopsis.grid(row=9, column=0, padx=10, pady=5)
         self.entradaSinopsis = CTkTextbox(master=self.ventanaModificar,
                                     font=("Roboto", 12, "bold"),
-                                    scrollbar_button_color="#75CB92",
+                                    scrollbar_button_color="#42594B",
                                     width=430,
                                     height=250)
         self.entradaSinopsis.grid(row=9, column=1, columnspan=2, padx=10, pady=5)
@@ -331,9 +334,9 @@ class VistaFicha:
                                         width=210,
                                         font=("Roboto", 18, "bold"),
                                         corner_radius=32,
-                                        fg_color="#75CB92",
-                                        hover_color="#4502A0",
-                                        border_color="#636E67",
+                                        fg_color="#42594B",
+                                        hover_color="#2E324C",
+                                        border_color="#4C2E41",
                                         border_width=3)
         self.botonModificaLibro.grid(row=10, column=1, padx=10, pady=5)
 
@@ -346,9 +349,9 @@ class VistaFicha:
                                         width=210,
                                         font=("Roboto", 18, "bold"),
                                         corner_radius=32,
-                                        fg_color="#75CB92",
-                                        hover_color="#4502A0",
-                                        border_color="#636E67",
+                                        fg_color="#42594B",
+                                        hover_color="#2E324C",
+                                        border_color="#4C2E41",
                                         border_width=3)
         self.botonCancelar.grid(row=10, column=2, padx=10, pady=5)
 

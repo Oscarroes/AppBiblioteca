@@ -47,7 +47,7 @@ class Vista:
         #-------------------------FRAME CON SCROLLBAR---------------------------------------------
 
         self.marcoLibros = CTkScrollableFrame(master=self.ventana,width=900, height=400, fg_color="#F6FFF9", border_color="#4C2E41", border_width=3,
-                                orientation="horizontal", scrollbar_button_color="#75CB92")
+                                orientation="horizontal", scrollbar_button_color="#42594B")
         self.marcoLibros.grid(row=0, rowspan=2, column=1, padx=10, pady=10)
         # self.marcoLibros.place(relx=0.5, rely=0.5, anchor="center")
 
@@ -58,7 +58,7 @@ class Vista:
         # self.frameMenuFinal.place(relx=0.5, rely=0.9, anchor="center")
         # #2E324C - #4C2E41 fondo azul borde morado
         # #F6FFF9 - "#636E67" antiguo fondo blanco con borde gris - 
-        # botones antiguo #75CB92 - nuevo #57665C o  mas parecido #385242 - #42594B
+        # botones antiguo #75CB92 - nuevo  #42594B
 
 
         #BOTÓN DE AGREGAR NUEVO LIBRO
@@ -85,7 +85,7 @@ class Vista:
                                 width=260,
                                 font=("Roboto", 18, "bold"),
                                 corner_radius=32,
-                                fg_color="#75CB92",
+                                fg_color="#42594B",
                                 hover_color="#2E4C39",
                                 border_color="#4C2E41",
                                 border_width=3)
@@ -100,9 +100,9 @@ class Vista:
                                 width=260,
                                 font=("Roboto", 18, "bold"),
                                 corner_radius=32,
-                                fg_color="#75CB92",
+                                fg_color="#42594B",
                                 button_color="#2E4C39",
-                                dropdown_fg_color="#75CB92",
+                                dropdown_fg_color="#42594B",
                                 dropdown_font=("Roboto", 18, "bold"),
                                 dropdown_text_color="#F6FFF9",
                                 dropdown_hover_color="#2E4C39"
@@ -133,6 +133,7 @@ class Vista:
         VentanaTitulo.geometry("448x320")
         VentanaTitulo.config(bg="#2E4C39")
         VentanaTitulo.title('Búsqueda por título')
+        VentanaTitulo.iconbitmap('img/iconoLibros.ico')
         VentanaTitulo.lift()
 
         self.etiquetaTitulo = CTkLabel(master=VentanaTitulo,
@@ -157,8 +158,8 @@ class Vista:
                                         width=210,
                                         font=("Roboto", 18, "bold"),
                                         corner_radius=32,
-                                        fg_color="#75CB92",
-                                        hover_color="#4502A0",
+                                        fg_color="#42594B",
+                                        hover_color="#2E324C",
                                         border_color="#4C2E41",
                                         border_width=3)
         self.botonBuscarPorTitulo.grid(row=2, column=0, columnspan=2, padx=10, pady=20)
@@ -169,6 +170,7 @@ class Vista:
         VentanaAutor.geometry("448x320")
         VentanaAutor.config(bg="#2E4C39")
         VentanaAutor.title('Búsqueda por autor')
+        VentanaAutor.iconbitmap('img/iconoLibros.ico')
         VentanaAutor.lift()
 
         self.etiquetaAutor = CTkLabel(master=VentanaAutor,
@@ -193,8 +195,8 @@ class Vista:
                                         width=210,
                                         font=("Roboto", 18, "bold"),
                                         corner_radius=32,
-                                        fg_color="#75CB92",
-                                        hover_color="#4502A0",
+                                        fg_color="#42594B",
+                                        hover_color="#2E324C",
                                         border_color="#4C2E41",
                                         border_width=3)
         self.botonBuscarPorAutor.grid(row=2, column=0, columnspan=2, padx=10, pady=20)
@@ -205,6 +207,7 @@ class Vista:
         VentanaGenero.geometry("448x320")
         VentanaGenero.config(bg="#2E4C39")
         VentanaGenero.title('Búsqueda por género')
+        VentanaGenero.iconbitmap('img/iconoLibros.ico')
         VentanaGenero.lift()
 
         self.etiquetaGenero = CTkLabel(master=VentanaGenero,
@@ -229,8 +232,8 @@ class Vista:
                                         width=210,
                                         font=("Roboto", 18, "bold"),
                                         corner_radius=32,
-                                        fg_color="#75CB92",
-                                        hover_color="#4502A0",
+                                        fg_color="#42594B",
+                                        hover_color="#2E324C",
                                         border_color="#4C2E41",
                                         border_width=3)
         self.botonBuscarPorGenero.grid(row=2, column=0, columnspan=2, padx=10, pady=20)

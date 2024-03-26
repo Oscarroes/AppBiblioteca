@@ -1,6 +1,7 @@
 import tkinter as tk
 from customtkinter import *
 from tkinter import messagebox, filedialog
+from PIL import Image
 import os
 
 class VistaInsertar:
@@ -20,6 +21,7 @@ class VistaInsertar:
             ventanaInsertar.geometry("896x896")
             ventanaInsertar.config(bg="#2E4C39")
             ventanaInsertar.title('Añade un nuevo libro')
+            ventanaInsertar.iconbitmap('img/iconoLibros.ico')
             ventanaInsertar.lift()
 
             def posicionarVentana():
@@ -159,9 +161,9 @@ class VistaInsertar:
                                             width=200,
                                             text_color="#F6FFF9",
                                             font=("Roboto", 18, "bold"),
-                                            fg_color="#75CB92",
-                                            hover_color="#4502A0",
-                                            border_color="#636E67",
+                                            fg_color="#42594B",
+                                            hover_color="#2E324C",
+                                            border_color="#4C2E41",
                                             border_width=3)
             self.botonExplorador.grid(row=8, column=1, padx=10, pady=5)
 
@@ -178,7 +180,7 @@ class VistaInsertar:
             self.etiquetaSinopsis.grid(row=9, column=0, padx=10, pady=5)
             self.entradaSinopsis = CTkTextbox(master=ventanaInsertar,
                                         font=("Roboto", 12, "bold"),
-                                        scrollbar_button_color="#75CB92",
+                                        scrollbar_button_color="#42594B",
                                         width=430,
                                         height=250)
             self.entradaSinopsis.grid(row=9, column=1, columnspan=2, padx=10, pady=5)
@@ -193,9 +195,9 @@ class VistaInsertar:
                                             width=210,
                                             font=("Roboto", 18, "bold"),
                                             corner_radius=32,
-                                            fg_color="#75CB92",
-                                            hover_color="#4502A0",
-                                            border_color="#636E67",
+                                            fg_color="#42594B",
+                                            hover_color="#2E324C",
+                                            border_color="#4C2E41",
                                             border_width=3)
             self.botonAgregar.grid(row=10, column=1, padx=10, pady=5)
 
@@ -208,9 +210,9 @@ class VistaInsertar:
                                             width=210,
                                             font=("Roboto", 18, "bold"),
                                             corner_radius=32,
-                                            fg_color="#75CB92",
-                                            hover_color="#4502A0",
-                                            border_color="#636E67",
+                                            fg_color="#42594B",
+                                            hover_color="#2E324C",
+                                            border_color="#4C2E41",
                                             border_width=3)
             self.botonCancelar.grid(row=10, column=2, padx=10, pady=5)
 
