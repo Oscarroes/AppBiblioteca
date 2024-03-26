@@ -18,7 +18,7 @@ class Vista:
         #----------------------------INTERFAZ GRÁFICA-----------------------------------------
 
         self.ventana = CTk()
-        self.ventana.geometry("1280x512")
+        self.ventana.geometry("1024x640")
         self.ventana.resizable(False, False)
         self.ventana.configure(fg_color="#2E4C39")
         self.ventana.title('Mi Biblioteca')
@@ -35,64 +35,58 @@ class Vista:
 
         #-----------------------FRAME CON MENU INICIAL-------------------------------------
 
-        self.frameMenu = CTkFrame(master=self.ventana, width=200, height=188,bg_color="#2E4C39", fg_color="#2E4C39", border_color="#2E4C39")
-        self.frameMenu.grid(row=0, column=0, padx=10, pady=10)
-        # self.frameMenu.place(relx=0.5, rely=0.1, anchor="center")
-
-        self.fondo = tk.PhotoImage(file="img/buhoLibroEscala200.png")
-        self.canvas = tk.Canvas(self.frameMenu, width=self.fondo.width(), height=self.fondo.height(), bg="#2E4C39", highlightthickness=0)
-        self.canvas.grid(row=0, column=0)
-        self.canvas.create_image(0,0,anchor=tk.NW, image=self.fondo)
-
-        #-------------------------FRAME CON SCROLLBAR---------------------------------------------
-
-        self.marcoLibros = CTkScrollableFrame(master=self.ventana,width=900, height=400, fg_color="#F6FFF9", border_color="#4C2E41", border_width=3,
-                                orientation="horizontal", scrollbar_button_color="#75CB92")
-        self.marcoLibros.grid(row=0, rowspan=2, column=1, padx=10, pady=10)
-        # self.marcoLibros.place(relx=0.5, rely=0.5, anchor="center")
-
-        #-------------------------FRAME CON MENU FINAL---------------------------------------
-
-        self.frameMenuFinal = CTkFrame(master=self.ventana, width=300, height=300, fg_color="#2E324C", border_color="#4C2E41", border_width=3)
-        self.frameMenuFinal.grid(row=1, column=0, padx=10, pady=10)
-        # self.frameMenuFinal.place(relx=0.5, rely=0.9, anchor="center")
-        # #2E324C - #4C2E41 fondo azul borde morado
-        # #F6FFF9 - "#636E67" antiguo fondo blanco con borde gris - 
-        # botones antiguo #75CB92 - nuevo #57665C o  mas parecido #385242 - #42594B
-
+        self.frameMenu = CTkFrame(master=self.ventana, width=925, height=50, fg_color="#F6FFF9", border_color="#636E67", border_width=3)
+        # self.frameMenu.grid(row=0, column=0, padx=10, pady=10)
+        self.frameMenu.place(relx=0.5, rely=0.1, anchor="center")
 
         #BOTÓN DE AGREGAR NUEVO LIBRO
-        self.boton = CTkButton(master=self.frameMenuFinal,
+        self.boton = CTkButton(master=self.frameMenu,
                                text="Nuevo libro",
+                                # command=self.abrirVentanaInsertar,
                                 command=self.llamarVistaInsertar.abrirVentanaInsertar,
                                 text_color="#F6FFF9",
                                 height=40,
-                                width=260,
-                                font=("Roboto", 18, "bold"),
-                                corner_radius=32,
-                                fg_color="#42594B",
-                                hover_color="#2E4C39",
-                                border_color="#4C2E41",
-                                border_width=3)
-        self.boton.grid(row=0, column=0, padx=10, pady=10)
-
-        #BOTÓN DE MIBIBLIOTECA
-        self.boton = CTkButton(master=self.frameMenuFinal,
-                               text="Mi biblioteca",
-                                command=self.mostrarLibros,
-                                text_color="#F6FFF9",
-                                height=40,
-                                width=260,
+                                width=190,
                                 font=("Roboto", 18, "bold"),
                                 corner_radius=32,
                                 fg_color="#75CB92",
                                 hover_color="#2E4C39",
-                                border_color="#4C2E41",
+                                border_color="#636E67",
                                 border_width=3)
-        self.boton.grid(row=1, column=0, padx=10, pady=10)
+        self.boton.grid(row=0, column=0, padx=10, pady=10)
+
+        #BOTÓN DE PRUEBA 1 LIBRO
+        self.boton = CTkButton(master=self.frameMenu,
+                               text="placeHolder libro",
+                                # command=self.guardarInfo,
+                                text_color="#F6FFF9",
+                                height=40,
+                                width=190,
+                                font=("Roboto", 18, "bold"),
+                                corner_radius=32,
+                                fg_color="#75CB92",
+                                hover_color="#2E4C39",
+                                border_color="#636E67",
+                                border_width=3)
+        self.boton.grid(row=0, column=1, padx=10, pady=10)
+
+        #BOTÓN DE PRUEBA 2 LIBRO
+        self.boton = CTkButton(master=self.frameMenu,
+                               text="placeHolder libro",
+                                # command=self.guardarInfo,
+                                text_color="#F6FFF9",
+                                height=40,
+                                width=190,
+                                font=("Roboto", 18, "bold"),
+                                corner_radius=32,
+                                fg_color="#75CB92",
+                                hover_color="#2E4C39",
+                                border_color="#636E67",
+                                border_width=3)
+        self.boton.grid(row=0, column=2, padx=10, pady=10)
 
         #COMBOBOX DE BUSQUEDA LIBRO
-        self.comboBox = customtkinter.CTkOptionMenu(master=self.frameMenuFinal,
+        self.comboBox = customtkinter.CTkOptionMenu(master=self.frameMenu,
                                 values=["Busca por título", "Busca por autor", "Busca por género"],
                                 command=self.menuOpciones,
                                 text_color="#F6FFF9",
@@ -107,7 +101,35 @@ class Vista:
                                 dropdown_text_color="#F6FFF9",
                                 dropdown_hover_color="#2E4C39"
                                 )
-        self.comboBox.grid(row=2, column=0, padx=10, pady=10)
+        self.comboBox.grid(row=0, column=3, padx=10, pady=10)
+
+        #-------------------------FRAME CON SCROLLBAR---------------------------------------------
+
+        self.marcoLibros = CTkScrollableFrame(master=self.ventana,width=900, height=400, fg_color="#F6FFF9", border_color="#636E67", border_width=3,
+                                orientation="horizontal", scrollbar_button_color="#75CB92")
+        # self.marcoLibros.grid(row=1, columnspan=4, padx=10, pady=10)
+        self.marcoLibros.place(relx=0.5, rely=0.5, anchor="center")
+
+        #-------------------------FRAME CON MENU FINAL---------------------------------------
+
+        self.frameMenuFinal = CTkFrame(master=self.ventana, width=925, height=50, fg_color="#F6FFF9", border_color="#636E67", border_width=3)
+        # self.frameMenu.grid(row=0, column=0, padx=10, pady=10)
+        self.frameMenuFinal.place(relx=0.5, rely=0.9, anchor="center")
+
+        #BOTÓN DE MIBIBLIOTECA
+        self.boton = CTkButton(master=self.frameMenuFinal,
+                               text="Mi biblioteca",
+                                command=self.mostrarLibros,
+                                text_color="#F6FFF9",
+                                height=40,
+                                width=210,
+                                font=("Roboto", 18, "bold"),
+                                corner_radius=32,
+                                fg_color="#75CB92",
+                                hover_color="#2E4C39",
+                                border_color="#636E67",
+                                border_width=3)
+        self.boton.grid(row=0, column=0, padx=10, pady=10)
 
         #BOTÓN DE SALIR
         self.boton = CTkButton(master=self.frameMenuFinal,
@@ -115,15 +137,15 @@ class Vista:
                                 command=self.salir,
                                 text_color="#F6FFF9",
                                 height=40,
-                                width=260,
+                                width=210,
                                 font=("Roboto", 18, "bold"),
                                 corner_radius=32,
                                 image=CTkImage(light_image=self.imagenSalir),
                                 fg_color="#ef404c",
                                 hover_color="#2E4C39",
-                                border_color="#4C2E41",
+                                border_color="#636E67",
                                 border_width=3)
-        self.boton.grid(row=3, column=0, padx=10, pady=10)
+        self.boton.grid(row=0, column=1, columnspan=3, padx=240, pady=10)
 
         self.ventana.mainloop()
 
@@ -159,7 +181,7 @@ class Vista:
                                         corner_radius=32,
                                         fg_color="#75CB92",
                                         hover_color="#4502A0",
-                                        border_color="#4C2E41",
+                                        border_color="#636E67",
                                         border_width=3)
         self.botonBuscarPorTitulo.grid(row=2, column=0, columnspan=2, padx=10, pady=20)
 
@@ -195,7 +217,7 @@ class Vista:
                                         corner_radius=32,
                                         fg_color="#75CB92",
                                         hover_color="#4502A0",
-                                        border_color="#4C2E41",
+                                        border_color="#636E67",
                                         border_width=3)
         self.botonBuscarPorAutor.grid(row=2, column=0, columnspan=2, padx=10, pady=20)
 
@@ -231,7 +253,7 @@ class Vista:
                                         corner_radius=32,
                                         fg_color="#75CB92",
                                         hover_color="#4502A0",
-                                        border_color="#4C2E41",
+                                        border_color="#636E67",
                                         border_width=3)
         self.botonBuscarPorGenero.grid(row=2, column=0, columnspan=2, padx=10, pady=20)
 
