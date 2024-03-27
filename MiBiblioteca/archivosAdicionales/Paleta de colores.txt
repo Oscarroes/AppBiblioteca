@@ -1,20 +1,7 @@
 Opcion 1
-fg_color="#B4E219" - frames
-border_color="#EE6A1B"
-fg_color="#8C26CE" - botones
-
-Opcion 2:
-
-fg_color="#53F288"
-
-triadico:
-#A04502 naranja
-#02A045 verde
-#4502A0 morado
+# #2E324C - #4C2E41 fondo azul borde morado - nuevo
+# #F6FFF9 - "#636E67" antiguo fondo blanco con borde gris - antiguo
+# botones antiguo #75CB92 fg_color="#8C26CE" - nuevo  #42594B
 
 
-Imagen libro:
-https://pixabay.com/es/users/joa70-16807463/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=8312948
 
-Imagen biblioteca:
-https://pixabay.com/es/users/luboshouska-198496/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=1204029

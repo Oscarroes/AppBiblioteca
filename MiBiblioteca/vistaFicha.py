@@ -120,7 +120,6 @@ class VistaFicha:
 
         self.botonModificar = CTkButton(master=self.ventanaVerFicha,
                                         text="Modificar libro",
-                                        # command=lambda: [self.abrirVentanaModificar(), posicionarVentana()],
                                         command=lambda: self.abrirVentanaModificar(libro),
                                         text_color="#F6FFF9",
                                         height=40,
@@ -148,11 +147,8 @@ class VistaFicha:
                                         border_width=3)
         self.botonCancelar.grid(row=8, column=1, padx=10, pady=10)
 
-    #////////////////////////////////////////////////////////////////////////////
     #VISTA MODIFICAR -----------------------------------------------------------
-    #////////////////////////////////////////////////////////////////////////////
-
-        
+  
     def abrirVentanaModificar(self,libro):
         
         self.ventanaModificar = tk.Toplevel(self.ventanaVerFicha)
@@ -294,7 +290,8 @@ class VistaFicha:
                                         width=200)
         self.entradaPortada.grid(row=8, column=2, padx=10, pady=5)
 
-        #BOTÓN DE EXPLORACIÓN
+        #BOTÓN DE EXPLORACIÓN--------------------------------------------------
+
         self.botonExplorador = CTkButton(master=self.ventanaModificar,text="Abrir explorador",
                                         command=lambda: [self.abrirExplorador(),posicionarVentana()],
                                         width=200,
@@ -354,8 +351,6 @@ class VistaFicha:
                                         border_color="#4C2E41",
                                         border_width=3)
         self.botonCancelar.grid(row=10, column=2, padx=10, pady=5)
-
-
 
     # Función para abrir un explorador de archivos y seleccionar una imagen
     def abrirExplorador(self):

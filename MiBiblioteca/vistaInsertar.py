@@ -34,6 +34,7 @@ class VistaInsertar:
             self.frameSeparador.grid(row=0, column=0, padx=10, pady=5)
 
             #ENTRADA TÍTULO--------------------------------------------------
+
             self.etiquetaTitulo = CTkLabel(master=ventanaInsertar,
                                         text="Título: ",
                                         justify="left",
@@ -48,6 +49,7 @@ class VistaInsertar:
             self.entradaTitulo.grid(row=1, column=1, padx=10, pady=5)
 
             #ENTRADA AUTOR-------------------------------------------------------
+
             self.etiquetaAutor = CTkLabel(master=ventanaInsertar,
                                         text="Autor: ",
                                         justify="left",
@@ -155,7 +157,8 @@ class VistaInsertar:
                                             width=200)
             self.entradaPortada.grid(row=8, column=2, padx=10, pady=5)
 
-            #BOTÓN DE EXPLORACIÓN
+            #BOTÓN DE EXPLORACIÓN----------------------------------------------------
+            
             self.botonExplorador = CTkButton(master=ventanaInsertar,text="Abrir explorador",
                                             command=lambda: [self.abrirExplorador(),posicionarVentana()],
                                             width=200,
@@ -260,7 +263,7 @@ class VistaInsertar:
         if self.entradaEditorial.get() == "":
             editorial = "Editorial no encontrada"
         if self.entradaISBN.get() == "":
-            isbn = "Númrero de ISBN no encontrado"
+            isbn = "Número de ISBN no encontrado"
         if self.entradaSinopsis.get("1.0", END) == "":
             sinopsis = "Sinopsis no encontrada"
 
